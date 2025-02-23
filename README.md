@@ -30,7 +30,7 @@ There are many usb devices in eud, here is a list:
 QUIC opensource `libeud` uses libusb to interact with eud devices,
 so you have to install `WinUSB`(or `libusbK`) driver on the table.
 
-- You may need to `SCAN` the device id of your eud device before control it.
+- By default this tool will use the first device id.
 
 # License
 GPL-2.0 OR BSD 3-clause "New" or "Revised" License
