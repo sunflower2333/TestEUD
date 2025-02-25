@@ -1,16 +1,7 @@
 // Test ports
-#include "lib/inc/eud_api.h"
-#include "lib/inc/jtag_api.h"
-#include "lib/inc/eud.h"
-#include "lib/inc/eud_api.h"
-#include "lib/inc/usb.h"
-#include "lib/inc/ctl_api.h"
-#include "lib/inc/com_api.h"
-#include "lib/inc/swd_api.h"
-#include "lib/inc/eud_error_defines.h"
+#include "utils.h"
 #include <iostream>
 
-void check_error(const char *msg, EUD_ERR_t errcode);
 EUD_ERR_t test_com(ComEudDevice* com_handle_p, uint8_t ExecEnvID);
 
 int main() {
@@ -38,23 +29,14 @@ int main() {
     check_error("Initialize Device COM", errcode);
 
     // test_com
-//    errcode = test_com(com_handle, 0x81);
-//    check_error("Test COM", errcode);
+    errcode = test_com(com_handle, 0x81);
+    check_error("Test COM", errcode);
 
     // close handle
     eud_close_peripheral((PVOID *) com_handle);
 
     return 0;
 }
-
-// Check error status and print error message
-void check_error(const char *msg, EUD_ERR_t errcode) {
-        char error_string[150];
-        uint32_t string_size;
-        eud_get_error_string(errcode, error_string, &string_size);
-        std::cerr << "[errcode]" << msg << "  status: " << error_string << std::endl;
-}
-
 
 #define EXEC_ENV_ID_ALLOWED_MASK 0x80
 EUD_ERR_t test_com(ComEudDevice *com_handle_p, uint8_t ExecEnvID){

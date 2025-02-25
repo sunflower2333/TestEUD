@@ -17,8 +17,9 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(libusb REQUIRED IMPORTED_TARGET libusb-1.0)
 
 add_executable(EUDTestcases main.cpp)
-add_executable(PortTest port_test.cpp)
+add_executable(PortTest port_test.cpp utils.cpp)
 add_executable(LibUSBTest test_com_writeread.cpp)
+add_executable(SWDTest swd_test.cpp utils.cpp)
 
 # Link the precompiled library
 target_link_libraries(EUDTestcases PRIVATE ${LIBRARY_DIR}/libeud.a)
@@ -26,4 +27,8 @@ target_link_libraries(EUDTestcases PRIVATE PkgConfig::libusb)
 
 target_link_libraries(PortTest PRIVATE ${LIBRARY_DIR}/libeud.a)
 target_link_libraries(PortTest PRIVATE PkgConfig::libusb)
+
+target_link_libraries(SWDTest PRIVATE ${LIBRARY_DIR}/libeud.a)
+target_link_libraries(SWDTest PRIVATE PkgConfig::libusb)
+
 target_link_libraries(LibUSBTest PRIVATE PkgConfig::libusb)

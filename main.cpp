@@ -1,13 +1,5 @@
 /* SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause */
-#include "lib/inc/eud_api.h"
-#include "lib/inc/jtag_api.h"
-#include "lib/inc/eud.h"
-#include "lib/inc/eud_api.h"
-#include "lib/inc/usb.h"
-#include "lib/inc/ctl_api.h"
-#include "lib/inc/com_api.h"
-#include "lib/inc/swd_api.h"
-#include "lib/inc/eud_error_defines.h"
+#include "utils.h"
 #include <iostream>
 #include <unistd.h>
 #include <libusb.h>
@@ -51,7 +43,7 @@ int main(int argc, char **argv) {
     // Compare options and do work
     if (strcmp(argv[1], "RST") == 0) {
         // Reset Device
-        errcode = eud_msm_reset(*device_id, 100);
+        errcode = eud_msm_reset(*device_id, 10);
         if (errcode != 0) {
             char error_string[200];
             uint32_t string_size;
@@ -106,7 +98,7 @@ int main(int argc, char **argv) {
             return -1;
         }
         // Read Jtag ID
-        uint32_t jtag_id;
+        uint32_t jtag_id=0;
         swd_get_jtag_id(swd_handle, &jtag_id);
         printf("Jtag ID: 0x%08X\n", jtag_id);
 
